@@ -88,6 +88,8 @@ def get_pos():
 
     dx, dy = scale_adjust(aver_x, aver_y, aver_radii)
 
+    print(dx, dy)
+
     int_dx = int(dx)
     int_dy = int(dy)
 
@@ -114,6 +116,4 @@ def scale_adjust(aver_x, aver_y, aver_radii):
 
     return scaled_x, scaled_y
 
-dxx, dyy = get_pos()
-
-print(dxx, dyy)
+get_pos()
