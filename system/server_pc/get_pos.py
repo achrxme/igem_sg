@@ -22,7 +22,7 @@ def get_center_of_red_circle():
             #noise 제거
             unnoise_red = cv2.GaussianBlur(red_area, (0,0), 1.0)
 
-            min_rad = 30 #0으로 두면 사용하지 않음
+            min_rad = 10 #0으로 두면 사용하지 않음
             max_rad = 45
             threshold = 30 #작으면 오류가 높음, 크면 검출률이 떨어짐
             
@@ -94,7 +94,7 @@ def get_pos():
     return int_dx, int_dy
 
 def get_scale_coef(measured_radii):
-    actual_radii = 3 #reference
+    actual_radii = 10 #reference, mm, it should be changed for real red dot sticker
     scale_coef = actual_radii / measured_radii
 
     return scale_coef
