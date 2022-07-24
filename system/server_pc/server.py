@@ -3,6 +3,7 @@ import socket, threading
 import keras_model_def
 import grip_test
 import get_pos
+import get_world_pos
 
 model = keras_model_def.keras_model_def()
 
@@ -36,6 +37,9 @@ def binder(client_socket, addr):
         data = str_dx_dy.encode()
         client_socket.send(data)
         break
+      
+      elif msg == 'get_world_pos' :
+          x_result, y_result = get_world_pos.get_world_pos()
 
       else :
         print('[server] undefined order : ', msg)
