@@ -3,9 +3,6 @@ import socket, threading
 import test_get_world_pos
 import get_pos
 
-#practice github
-#practice pushshshshshshshshshs
-
 def binder(client_socket, addr):
 
   print('Connected by', addr)
