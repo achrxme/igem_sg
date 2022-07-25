@@ -313,9 +313,102 @@ def main():
         rb.move(pos_plate_sol)
         rb.move(pos_suction)
 
-    pos_incub_ver = posture_change(pos_incub,'incub_ver', 0)
+
+    pos_incub_ver = posture_change(pos_incub, 'incub_ver', 0)
     pos_micro_ver = posture_change(pos_micro, 'micro_ver', 0)
-    pos_plate_sol_ver = posture_change(pos_plate_sol, 'plate_ver',0)
+    pos_plate_sol_ver = posture_change(pos_plate_sol, 'plate_ver', 0)
+
+    rb.home()
+
+    print('============= 1st motion start =============')
+
+    incubator_motion('open', 280)
+    grip('grip', pos_incub_ver, 'on_plate_sol_1', 1, 1, 0)
+    rb.move(pos_micro_ver)
+    grip('release', pos_micro_ver, 'on_micro', 1, 0, 1)
+    incubator_motion('close', 280)
+    rb.move(pos_micro_ver)
+    grip('grip', pos_micro_ver, 'on_micro', 1, 1, 0)
+    rb.move(pos_plate_sol_ver)
+    grip('release', pos_plate_sol_ver, 'on_plate_sol_1', 1, 0, 0)
+    plate_open('open', pos_plate_sol, 'on_plate_sol_1')
+    suction()
+    cap_open('open', 'PBS')
+
+    print('============= 2nd motion start =============')
+
+    pipette_motion(pos_plate_sol, 'to_PBS', pos_plate_sol,
+                   'on_plate_sol_1', 'basic', 1, 1, 1)
+    plate_open('close', pos_plate_sol, 'on_plate_sol_1')
+    cap_open('close', 'PBS')
+    rb.move(pos_plate_sol_ver)
+    grip('grip', pos_plate_sol_ver, 'on_plate_sol_1', 1, 1, 0)
+    mix(pos_plate_sol_ver, 2, 100)
+    grip('release', pos_plate_sol_ver, 'on_plate_sol_1', 1, 0, 0)
+    incubator_motion('open', 280)
+    rb.move(pos_plate_sol_ver)
+    grip('grip', pos_plate_sol_ver, 'on_plate_sol_1', 1, 1, 0)
+    rb.move(pos_incub_ver)
+    grip('release', pos_incub_ver, 'incub_plate_1', 1, 0, 0)
+    incubator_motion('close', 280)
+
+    rb.home()
+    print('------- sleep 4 min -------')
+    rb.sleep(10)
+
+    print('============= 3rd motion start =============')
+
+    incubator_motion('open', 280)
+    rb.move(pos_incub_ver)
+    grip('grip', pos_incub_ver, 'incub_plate_1', 1, 1, 0)
+    mix(pos_incub_ver, 2, 100)
+    rb.move(pos_plate_sol_ver)
+    grip('release', pos_plate_sol_ver, 'on_plate_sol_1', 1, 0, 0)
+    incubator_motion('close', 280)
+    plate_open('open', pos_plate_sol, 'on_plate_sol_1')
+    cap_open('open', 'TRYPSIN')
+    cap_open('open', 'CONICAL')
+    pipette_motion(pos_plate_sol, 'to_trypsin', pos_plate_sol,
+                   'on_plate_sol_1', 'basic', 1, 1, 0)
+    pipette_mix(pos_plate_sol_ver, 'on_plate_sol_1', 4, 30)
+    pipette_motion(pos_plate_sol, 'on_plate_sol_1',
+                   pos_plate_sol, 'to_conical', 'basic', 0, 1, 1)
+    cap_open('close', 'TRYPSIN')
+    cap_open('close', 'CONICAL')
+
+    print('============= 4th motion start =============')
+
+    rb.move(pos_plate_sol)
+    grip('grip', pos_plate_sol, 'to_conical', 1, 1, 0)
+    grip('release', pos_centri, 'there', 1, 0, 0)
+    print('======= H U M A N T I M E =======')
+    rb.sleep(10)
+
+    grip('grip', pos_centri, 'there', 1, 1, 0)
+    rb.move(pos_plate_sol)
+    grip('release', pos_plate_sol, 'to_conical', 1, 0, 0)
+    cap_open('open', 'MEDIUM')
+    pipette_motion(pos_plate_sol, 'to_medium', pos_plate_sol,
+                   'to_conical', 'basic', 1, 1, 0)
+    pipette_mix(pos_plate_sol_ver, 'on_plate_sol_1', 4, 30)
+    pipette_motion(pos_plate_sol, 'there', pos_plate_sol,
+                   'there', 'basic', 0, 1, 1)
+
+    plate_open('open', pos_plate_sol, 'on_plate_sol_2')
+    plate_open('open', pos_plate_sol, 'on_plate_sol_3')
+
+    print('============= 5th motion start =============')
+
+    pipette_motion(pos_plate_sol, 'to_conical', pos_plate_sol,
+                   'on_plate_sol_2', '1000ml', 1, 1, 1)
+    plate_open('close', pos_plate_sol, 'on_plate_sol_2')
+    incubator_motion('open', 280)
+    rb.move(pos_incub_ver)
+    grip('grip', pos_incub_ver, 'incub_plate_1', 1, 1, 0)
+    mix(pos_incub_ver, 2, 100)
+    rb.move(pos_plate_sol_ver)
+    grip('release', pos_plate_sol_ver, 'on_plate_sol_1', 1, 0, 0)
+    incubator_motion('close', 280)
 
     rb.home()
     
