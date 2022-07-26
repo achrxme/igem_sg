@@ -19,7 +19,7 @@ def extract_dx_dy(rcv_str_dx_dy):
 
 
 def order_classify(order):
-    HOST = '192.168.0.14'
+    HOST = '192.168.0.17'
     PORT = 9999
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect((HOST, PORT))

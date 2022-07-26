@@ -4,7 +4,6 @@ import keras_model_def
 import grip_test
 import get_pos
 
-model = keras_model_def.keras_model_def()
 
 def binder(client_socket, addr):
 
@@ -14,18 +13,8 @@ def binder(client_socket, addr):
       #receive
       data = client_socket.recv(64)
       msg = data.decode()
-     
-      if msg == 'grip_test' :
 
-        test_result = grip_test.grip_test(model)
-        print(test_result)
-
-        #send
-        data = test_result.encode()
-        client_socket.send(data)
-        break
-
-      elif msg == 'get_pos' :
+      if msg == 'get_pos' :
 
         dx, dy = get_pos.get_pos()
         str_dx = str(dx)
