@@ -83,7 +83,6 @@ def get_pos():
         if success_idx == REPEAT_NUM:
             break
 
-    
     print('END : ' ,aver_x, aver_y)
 
     dx, dy = scale_adjust(aver_x, aver_y, aver_radii)

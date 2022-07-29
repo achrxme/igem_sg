@@ -8,7 +8,7 @@ import cv2
 import sys
 import numpy as np
 
-ACTUAL_MARKER_LENGTH = 53 #mm of actual length of marker
+ACTUAL_MARKER_LENGTH = 53 # mm of actual length of marker
 CENTER_OFFSET_X = 10
 CENTER_OFFSET_Y = 22
 
